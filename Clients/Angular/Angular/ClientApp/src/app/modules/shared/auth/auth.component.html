@@ -1,0 +1,12 @@
+<div *ngIf="!authenticated">
+    <div (click)="login()">
+        <div>Login</div>
+    </div>
+</div>
+<div *ngIf="authenticated">
+    <div>{{userName}}</div>
+</div>
+
+<div (click)="logoutClicked($event)">
+    <div>Log Out</div>
+</div>

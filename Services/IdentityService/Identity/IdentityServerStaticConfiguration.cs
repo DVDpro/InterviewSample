@@ -36,15 +36,17 @@ namespace Identity
                 new Client
                 {
                     ClientId = "api.client.spa",
-                    AllowedGrantTypes = GrantTypes.Code,
-                    ClientSecrets =
-                    {
-                        new Secret("p@ssw0rd".Sha256()) //TODO: load client secrets from configuration (in dev: secret.json)
-                    },
-                    RequirePkce = true,
-                    RedirectUris =           { "http://localhost", "http://localhost:4200", "https://localhost:44306" },
-                    PostLogoutRedirectUris = { "http://localhost", "http://localhost:4200", "https://localhost:44306" },
-                    AllowedCorsOrigins =     { "http://localhost", "http://localhost:4200", "https://localhost:44306" },
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false,
+                    //ClientSecrets =
+                    //{
+                    //    new Secret("p@ssw0rd".Sha256()) //TODO: load client secrets from configuration (in dev: secret.json)
+                    //},
+                    //RequirePkce = true,
+                    RedirectUris =           { "https://localhost:44308/" },
+                    PostLogoutRedirectUris = { "https://localhost:44308/" },
+                    AllowedCorsOrigins =     { "https://localhost:44308" },
                     AllowedScopes = {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Email,
