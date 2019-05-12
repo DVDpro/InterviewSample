@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,12 +25,11 @@ namespace Data.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication("Bearer")
-                .AddIdentityServerAuthentication(options =>
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
                     options.Authority = Configuration["IdentityServiceUrl"];
-                    options.RequireHttpsMetadata = true;
-                    options.ApiName = "data";
+                    options.Audience = "data";
                 });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -46,8 +46,8 @@ namespace Data.Api
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseAuthentication();
+            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
