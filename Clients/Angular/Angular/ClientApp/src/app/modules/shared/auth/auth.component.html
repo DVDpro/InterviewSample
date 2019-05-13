@@ -4,9 +4,9 @@
     </div>
 </div>
 <div *ngIf="authenticated">
-    <div>{{userName}}</div>
+    
 </div>
 
-<div (click)="logoutClicked($event)">
-    <div>Log Out</div>
+<div *ngIf="authenticated" (click)="logoutClicked($event)">
+  <div>{{userName}} - Log Out</div>
 </div>
