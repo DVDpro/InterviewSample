@@ -33,28 +33,7 @@ namespace Data.Test
         [InlineData("/api/PrivateValues")]
         public async Task Get_Success(string url)
         {
-            var apiClient = _factory.CreateClient();
-
-            // auth to STS
-            var srvConfiguration = (IConfiguration)_factory.Server.Host.Services.GetService(typeof(IConfiguration));
-            var srvIdentityUrl = srvConfiguration["IdentityServiceUrl"];
-            using (var identityClient = new System.Net.Http.HttpClient())
-            {
-                identityClient.BaseAddress = new Uri(srvIdentityUrl);
-                var discoveryResponse = await identityClient.GetDiscoveryDocumentAsync();
-                if (discoveryResponse.IsError)
-                    throw new Exception($"Identity service at {srvIdentityUrl} failed or not running. {discoveryResponse.Error}", discoveryResponse.Exception);
-
-                var request = new AuthorizationCodeTokenRequest();
-                request.Address = discoveryResponse.AuthorizeEndpoint;
-                var tokenResponse = await identityClient.RequestAuthorizationCodeTokenAsync(request);
-
-                if (tokenResponse.IsError)
-                    throw new Exception($"Authentication failed! {tokenResponse.Error} {tokenResponse.ErrorDescription}", tokenResponse.Exception);
-
-                apiClient.SetBearerToken(tokenResponse.AccessToken);
-
-            }
+            var apiClient = await _factory.CreateAuthClientAsync(); //get authorized client to inmemory data.api server
 
             var response = await apiClient.GetAsync(url);
             response.EnsureSuccessStatusCode();

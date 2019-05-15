@@ -35,6 +35,27 @@ namespace Identity
             {
                 new Client
                 {
+                    ClientId = "api.client.test",
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    AllowAccessTokensViaBrowser = true,
+                    RequireConsent = false,
+                    ClientSecrets =
+                    {
+                        new Secret("p@ssw0rd".Sha256()) //TODO: load client secrets from configuration (in dev: secret.json)
+                    },
+                    //RequirePkce = true,
+                    RedirectUris =           { "http://localhost" },
+                    PostLogoutRedirectUris = { "http://localhost" },
+                    AllowedCorsOrigins =     { "http://localhost" },
+                    AllowedScopes = {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Email,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        DataApiResourceKey
+                    }
+                },
+                new Client
+                {
                     ClientId = "api.client.spa",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
