@@ -19,4 +19,4 @@ Microservices architecture, ApiGateway, IdentityService (STS), SampleApiService,
 6) Run All.Sln in Visual Studio
    - for first run you need soo many minutes until npm manager get all necessary packages for angular projects. Be patiente. 
 
-If you have some troubles with iisexpress, you can changed http port in project Data.Api, Identity and ApiGateway. Don't changes SSL ports.
+If you have some troubles with iisexpress, you can change http port in project Data.Api, Identity and ApiGateway. Don't changes SSL ports.
